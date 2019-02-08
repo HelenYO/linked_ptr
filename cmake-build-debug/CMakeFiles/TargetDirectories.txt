@@ -1,0 +1,3 @@
+/Users/elena/Desktop/Linked_ptr/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/elena/Desktop/Linked_ptr/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/elena/Desktop/Linked_ptr/cmake-build-debug/CMakeFiles/Linked_ptr.dir

@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/elena/Desktop/Linked_ptr/linked_ptr.h
+iostream
+-
+
+/Users/elena/Desktop/Linked_ptr/main.cpp
+iostream
+-
+linked_ptr.h
+/Users/elena/Desktop/Linked_ptr/linked_ptr.h
+
