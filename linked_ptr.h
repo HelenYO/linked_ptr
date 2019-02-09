@@ -42,6 +42,8 @@ namespace {
 
     template<typename T>
     struct linked_ptr {
+        template<typename U>
+        friend struct linked_ptr;
 
     public:
 
