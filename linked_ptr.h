@@ -10,34 +10,63 @@
 namespace {
 
     struct info_base {
-        virtual void destroy() = 0;
-        virtual ~info_base() = default;
+
+        info_base(){};
+
+        info_base(info_base *left, info_base *right) : left(left), right(right) {}
+
+        ~info_base(){}
+
+        void insert_before(info_base *other) {
+            left = other->left;
+            right = other;
+
+            if(other->left) {
+                other->left->right = this;
+            }
+            other->left = this;
+        }
+
+        void remove() {
+            if(right) {
+                right->left = left;
+            }
+            if(left) {
+                left->right = right;
+            }
+            left = nullptr;
+            right = nullptr;
+        }
+
+        void swap(info_base *other) {
+            info_base *this_left = left;
+            info_base *this_right = right;
+            info_base *other_left = other->left;
+            info_base *other_right = other->right;
+
+            if(this_left) {
+                this_left->right = other;
+            }
+            if(this_right) {
+                this_right->left = other;
+            }
+
+            if(other_left) {
+                other_left->right = this;
+            }
+            if(other_right) {
+                other_right->left = this;
+            }
+
+            this->left = other_left;
+            this->right = other_right;
+
+            other->left = this_left;
+            other->right = this_right;
+        }
 
         info_base *left = nullptr;
         info_base *right = nullptr;
-    };
-
-    template <typename T>
-    struct info : info_base {
-
-        T *get() {
-            return ptr;
-        }
-
-        void destroy() {
-            //delete ptr;
-            ptr = nullptr;
-        }
-
-        info(T *ptr) :ptr(ptr){}
-
-        ~info() {
-            if(ptr) {
-                destroy();
-            }
-        }
-
-        T *ptr;
     };
 
     template<typename T>
@@ -47,45 +76,31 @@ namespace {
 
     public:
 
-        linked_ptr() {
-            //set_pointers( nullptr);
-            //new(data) info(nullptr);
-            data = nullptr;
-        }
+        linked_ptr() : ptr(nullptr), data(nullptr, nullptr) {}
 
-        explicit linked_ptr(T *p) : data(new info<T>(p)){
-            //set_pointers(p, nullptr);
-            //data = new info<T>(ptr);
-            //new(data) info<T>(new info<T>(p));
+        explicit linked_ptr(T *p) : ptr(p), data(nullptr, nullptr) {}
 
-        }
-
-        linked_ptr(std::nullptr_t) {
-            //set_pointers(nullptr, nullptr);
-            linked_ptr();
-        }
+        linked_ptr(std::nullptr_t) {}
 
         template<typename Y>
         linked_ptr(linked_ptr<Y> &other) {
-            //set_pointers(other.ptr, nullptr);
-            //data = new info<T>(other.ptr);
-
-            auto f = reinterpret_cast<info<T>*>(other.data);
-            new(data) info<T>(f->ptr);//todo::
-            add_ref(other);
-
-//            new(data) info<T>(other.data);//todo::
-//            add_ref(other);
+            ptr = other.ptr;
+            data.insert_before(&other.data);
         }
 
         linked_ptr(linked_ptr &other) {
-//            set_pointers(other.ptr, nullptr);
-//            data = new info<T>(other.ptr);
-//            add_ref(other);
-            auto f = reinterpret_cast<info<T>*>(other.data);
-            new(data) info<T>(f->ptr);//todo::
-            add_ref(other);
+            ptr = other.ptr;
+            data.insert_before(&other.data);
         }
+
+        linked_ptr(linked_ptr const &other) {
+            linked_ptr(const_cast<linked_ptr&>(other));
+        };
+
+        template<typename U>
+        linked_ptr(linked_ptr<U> const &other) {
+            linked_ptr(const_cast<linked_ptr<U>&>(other));
+        };
 
         template<typename Y>
         linked_ptr &operator=(linked_ptr<Y> &other) {
@@ -102,19 +117,16 @@ namespace {
 
         template<typename Y>
         linked_ptr(linked_ptr<Y> &other, T *p) {//todo: что от меня хотят? - ничего
-            //new(data) info(other);
-            auto f2 = reinterpret_cast<info<Y>*>(other.data);
-            data = new info<Y>(f2->ptr);
-            auto f = reinterpret_cast<info<T>*>(data);
-            f->ptr = p;
-            if (other.data) {
-                add_ref(other);
-            }
+            this = other;
+            ptr = p;
         }
 
         linked_ptr(linked_ptr &&other) {
-            set_pointers(other.data);
-            other.set_pointers(nullptr);
+//            swap(other);
+//            other.data.remove();
+//            other.ptr = nullptr;
+            linked_ptr temp(std::move(other));
+            swap(temp);
         }
 
         linked_ptr &operator=(linked_ptr &&other) {
@@ -135,9 +147,7 @@ namespace {
         }
 
         T *get() const {
-            auto f = reinterpret_cast<info<T>*>(data);
-            return f->ptr;
-            //return ptr;
+            return ptr;
         }
 
         T *operator->() const {
@@ -149,7 +159,8 @@ namespace {
         }
 
         bool unique() const {
-            return (!data || !(data->left || data->right));
+            //return !(data.left || data.right);
+            return !data.left & !data.right;
         }
 
         operator bool() const {
@@ -157,57 +168,100 @@ namespace {
         }
 
         ~linked_ptr() {
-
-            if (!data) {
-                return;
-            }
-            if (data->right || data->left) {
-                delete_this_ptr();
-            }
-            data->destroy();
+            //destroy();
+            data.remove();
+            ptr = nullptr;
         }
-
 
         void swap(linked_ptr &other) {
-            auto f = reinterpret_cast<info<T>*>(data);
-            auto f2 = reinterpret_cast<info<T>*>(other.data);
-            std::swap(f->ptr, f2->ptr);
-            std::swap(data, other.data);
+            std::swap(ptr, other.ptr);
+            data.swap(&other.data);
         }
 
+        //
+
+        bool operator==(T *t) const {
+            return ptr == t;
+        }
+
+        bool operator!=(T *t) const {
+            return ptr != t;
+        }
+
+        bool operator>(T *t) const {
+            return ptr > t;
+        }
+
+        bool operator>=(T *t) const {
+            return ptr >= t;
+        }
+
+        bool operator<(T *t) const {
+            return ptr < t;
+        }
+
+        bool operator<=(T *t) const {
+            return ptr <= t;
+        }
+
+        template<typename U>
+        bool operator==(linked_ptr<U> const &other) const {
+            return other.ptr == ptr;
+        }
+
+        template<typename U>
+        bool operator!=(linked_ptr<U> const &other) const {
+            return other.ptr != ptr;
+        }
+
+        template<typename U>
+        bool operator<(linked_ptr<U> const &other) const {
+            return other.ptr < ptr;
+        }
+
+        template<typename U>
+        bool operator<=(linked_ptr<U> const &other) const {
+            return other.ptr <= ptr;
+        }
+
+        template<typename U>
+        bool operator>(linked_ptr<U> const &other) const {
+            return other.ptr > ptr;
+        }
+
+        template<typename U>
+        bool operator>=(linked_ptr<U> const &other) const {
+            return other.ptr >= ptr;
+        }
 
     private:
-        template<typename S>
-        void add_ref(linked_ptr<S> &p) {
-            if(p.data->left) {
-                data->right = p.data;
-                p.data->left->right = data;
-                p.data->left = data;
+        void destroy() {
+            if (unique() && ptr) {
+                delete ptr;
+                ptr = nullptr;
             } else {
-                data->left = nullptr;
-                p.data->left = data;
+                data.remove();
             }
-        }
-
-        void delete_this_ptr() {
-            if(data) {
-                if (data->left) {
-                    data->left->right = data->right;
-                }
-                if (data->right) {
-                    data->right->left = data->left;
-                }
-            }
-        }
-
-        void set_pointers( info_base *d) {
-            data = d;
         }
 
     private:
-        //T *ptr;
-        info_base *data;
+        T *ptr;
+        info_base data;
     };
+
+
+    template <typename T, typename U>
+    bool operator==(linked_ptr<T> const& a, linked_ptr<U> const& b) noexcept
+    {
+        return a.get() == b.get();
+    }
+
+    template <typename T, typename U>
+    bool operator!=(linked_ptr<T> const& a, linked_ptr<U> const& b) noexcept
+    {
+        return !(a == b);
+    }
+
 }
 
 #endif //LINKED_PTR_LINKED_PTR_H

@@ -1,10 +1,11 @@
-//#include <iostream>
+#include <iostream>
 #include <memory>
 #include <algorithm>
 #include <set>
 #include <string>
 #include <vector>
 
+//#include "link.h"
 #include "linked_ptr.h"
 
 //using namespace smart_ptr;
@@ -35,7 +36,6 @@ bool base_test() {
     linked_ptr<int> ptr3(ptr1);
 
     check *= ptr2.unique();
-
     check *= !ptr1.unique();
 
     check *= (ptr1 == ptr3);
@@ -51,12 +51,10 @@ bool del_test() {
 
     check *= !v2ptr.unique();
 
-    //vptr.~linked_ptr<std::vector<int>>();
-    vptr.reset();
+    vptr.~linked_ptr<std::vector<int>>();
     std::vector<int> v = *v2ptr;
 
     check *= (v[0] == 1);
-
     check *= v2ptr.unique();
 
     v2ptr.reset();
@@ -91,14 +89,10 @@ bool reset_test() {
 //    int *iptr = new int(3);
 //    linked_ptr<int> p1(iptr);
 //    p1.~linked_ptr<int>();
-//    //p1.reset();
 //    check *= (*iptr != 3);
-////    if(*iptr != 3) {
-////        cout << "YES\n";
-////    }
 //    return check;
 //}
-//
+
 bool test() {
     cout << "start: test" << endl;
     linked_ptr<A> ptr(new B());
@@ -117,56 +111,56 @@ bool set_test() {
     S.insert(p3);
     return true;
 }
-//
-//
-//bool unique_test() {
-//    cout << "start: unique_test" << endl;
-//    bool check = true;
-//    linked_ptr<int> p1(new int(1));
-//    linked_ptr<int> p2(new int(2));
-//    linked_ptr<int> p3(new int(3));
-//
-//    check *= (p1.unique() && p2.unique() && p3.unique());
-//    linked_ptr<int> p4 = p3;
-//    check *= !p3.unique() && !p4.unique();
-//    p3.reset(new int(5));
-//    check *= p3.unique() && p4.unique();
-//    return check;
-//}
-//
-//namespace unique2 {
-//    struct A {
-//        A(int a1) :a(a1) {}
-//        int a;
-//    };
-//
-//    struct B : A {
-//        B(int a1, int b1) : A(a1), b(b1) {}
-//        int b;
-//    };
-//}
-//
-//bool unique2_test() {
-//    cout << "start: unique2_test" << endl;
-//    bool check = true;
-//    linked_ptr<unique2::B> p1(new unique2::B(2, 3));
-//    linked_ptr<unique2::A> p2(p1);
-//    check *= !p1.unique();
-//    check *= !p2.unique();
-//    return check;
-//}
-//
-//bool test_bool(linked_ptr<int> lp, std::shared_ptr<int> sp) {
-//    cout << "start: test_bool" << endl;
-//    if (sp) {
-//        if (!lp)
-//            return false;
-//    } else {
-//        if (lp)
-//            return false;
-//    }
-//    return true;
-//}
+
+
+bool unique_test() {
+    cout << "start: unique_test" << endl;
+    bool check = true;
+    linked_ptr<int> p1(new int(1));
+    linked_ptr<int> p2(new int(2));
+    linked_ptr<int> p3(new int(3));
+
+    check *= (p1.unique() && p2.unique() && p3.unique());
+    linked_ptr<int> p4 = p3;
+    check *= !p3.unique() && !p4.unique();
+    p3.reset(new int(5));
+    check *= p3.unique() && p4.unique();
+    return check;
+}
+
+namespace unique2 {
+    struct A {
+        A(int a1) :a(a1) {}
+        int a;
+    };
+
+    struct B : A {
+        B(int a1, int b1) : A(a1), b(b1) {}
+        int b;
+    };
+}
+
+bool unique2_test() {
+    cout << "start: unique2_test" << endl;
+    bool check = true;
+    linked_ptr<unique2::B> p1(new unique2::B(2, 3));
+    linked_ptr<unique2::A> p2(p1);
+    check *= !p1.unique();
+    check *= !p2.unique();
+    return check;
+}
+
+bool test_bool(linked_ptr<int> lp, std::shared_ptr<int> sp) {
+    cout << "start: test_bool" << endl;
+    if (sp) {
+        if (!lp)
+            return false;
+    } else {
+        if (lp)
+            return false;
+    }
+    return true;
+}
 
 //bool test_swap() {
 //    cout << "start: test_swap" << endl;
@@ -194,7 +188,7 @@ bool set_test() {
 //
 //    return !(*a0 == 1 || *b0 != 2);
 //}
-//
+
 //bool make_linked_test() {
 //    cout << "start: make_linked_test" << endl;
 //
@@ -231,19 +225,19 @@ int main() {
         std::cerr << "set_test failed" << std::endl;
     } else cout << "ok" << endl;
 
-//    if (!unique_test()) {
-//        std::cerr << "unique_test failed" << std::endl;
-//    } else cout << "ok" << endl;
-//
-//    if (!unique2_test()) {
-//        std::cerr << "unique2_test failed" << std::endl;
-//    } else cout << "ok" << endl;
-//
-//    linked_ptr<int> ptr(new int(4));
-//    std::shared_ptr<int> ptr2(new int(4));
-//    if (!test_bool(ptr, ptr2)) {
-//        std::cerr << "test_bool failed" << std::endl;
-//    } else cout << "ok" << endl;
+    if (!unique_test()) {
+        std::cerr << "unique_test failed" << std::endl;
+    } else cout << "ok" << endl;
+
+    if (!unique2_test()) {
+        std::cerr << "unique2_test failed" << std::endl;
+    } else cout << "ok" << endl;
+
+    linked_ptr<int> ptr(new int(4));
+    std::shared_ptr<int> ptr2(new int(4));
+    if (!test_bool(ptr, ptr2)) {
+        std::cerr << "test_bool failed" << std::endl;
+    } else cout << "ok" << endl;
 
 //    if (!test_swap()) {
 //        std::cerr << "test_swap failed" << std::endl;
