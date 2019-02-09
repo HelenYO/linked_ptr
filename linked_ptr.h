@@ -48,28 +48,42 @@ namespace {
     public:
 
         linked_ptr() {
-            set_pointers(nullptr, nullptr);
+            //set_pointers( nullptr);
+            //new(data) info(nullptr);
+            data = nullptr;
         }
 
-        explicit linked_ptr(T *p) {
-            set_pointers(p, nullptr);
-            data = new info<T>(ptr);
+        explicit linked_ptr(T *p) : data(new info<T>(p)){
+            //set_pointers(p, nullptr);
+            //data = new info<T>(ptr);
+            //new(data) info<T>(new info<T>(p));
+
         }
 
         linked_ptr(std::nullptr_t) {
-            set_pointers(nullptr, nullptr);
+            //set_pointers(nullptr, nullptr);
+            linked_ptr();
         }
 
         template<typename Y>
         linked_ptr(linked_ptr<Y> &other) {
-            set_pointers(other.ptr, nullptr);
-            data = new info<T>(other.ptr);
+            //set_pointers(other.ptr, nullptr);
+            //data = new info<T>(other.ptr);
+
+            auto f = reinterpret_cast<info<T>*>(other.data);
+            new(data) info<T>(f->ptr);//todo::
             add_ref(other);
+
+//            new(data) info<T>(other.data);//todo::
+//            add_ref(other);
         }
 
         linked_ptr(linked_ptr &other) {
-            set_pointers(other.ptr, nullptr);
-            data = new info<T>(other.ptr);
+//            set_pointers(other.ptr, nullptr);
+//            data = new info<T>(other.ptr);
+//            add_ref(other);
+            auto f = reinterpret_cast<info<T>*>(other.data);
+            new(data) info<T>(f->ptr);//todo::
             add_ref(other);
         }
 
@@ -87,16 +101,20 @@ namespace {
         }
 
         template<typename Y>
-        linked_ptr(linked_ptr<Y> &other, T *p) {//todo: что от меня хотят?
-            set_pointers(p, other.data);
+        linked_ptr(linked_ptr<Y> &other, T *p) {//todo: что от меня хотят? - ничего
+            //new(data) info(other);
+            auto f2 = reinterpret_cast<info<Y>*>(other.data);
+            data = new info<Y>(f2->ptr);
+            auto f = reinterpret_cast<info<T>*>(data);
+            f->ptr = p;
             if (other.data) {
                 add_ref(other);
             }
         }
 
         linked_ptr(linked_ptr &&other) {
-            set_pointers(other.ptr, other.data);
-            other.set_pointers(nullptr, nullptr);
+            set_pointers(other.data);
+            other.set_pointers(nullptr);
         }
 
         linked_ptr &operator=(linked_ptr &&other) {
@@ -117,7 +135,9 @@ namespace {
         }
 
         T *get() const {
-            return ptr;
+            auto f = reinterpret_cast<info<T>*>(data);
+            return f->ptr;
+            //return ptr;
         }
 
         T *operator->() const {
@@ -149,7 +169,9 @@ namespace {
 
 
         void swap(linked_ptr &other) {
-            std::swap(ptr, other.ptr);
+            auto f = reinterpret_cast<info<T>*>(data);
+            auto f2 = reinterpret_cast<info<T>*>(other.data);
+            std::swap(f->ptr, f2->ptr);
             std::swap(data, other.data);
         }
 
@@ -178,13 +200,12 @@ namespace {
             }
         }
 
-        void set_pointers(T *p, info_base *d) {
-            ptr = p;
+        void set_pointers( info_base *d) {
             data = d;
         }
 
     private:
-        T *ptr;
+        //T *ptr;
         info_base *data;
     };
 }

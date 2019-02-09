@@ -3,4 +3,7 @@ project(Linked_ptr)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(Linked_ptr main.cpp linked_ptr.h)
+add_executable(Linked_ptr
+        #main.cpp
+        linked_ptr.h
+        main2.cpp)

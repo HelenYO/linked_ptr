@@ -1,23 +1,24 @@
-//#include <iostream>
-//#include "linked_ptr.h"
-//using namespace std;
-//struct B {
-//    int b = 9;
-//
-//    B(int b) : b(b) {}
-//};
-//struct A {
-//    int a = 5;
-//    B b = 9;
-//
-//    A(int a) : a(a), b(9) {}
-//    A(){}
-//};
-//int main() {
-//
-//    A b(6);
-//    A c = 7;
-//    linked_ptr<A> l1(&b);
+#include <iostream>
+#include "linked_ptr.h"
+using namespace std;
+struct B {
+    int b = 9;
+
+    B(int b) : b(b) {}
+};
+struct A {
+    int a = 5;
+    B b = 9;
+
+    A(int a) : a(a), b(9) {}
+    A(){}
+};
+int main() {
+
+    A b(6);
+    A c = 7;
+    linked_ptr<A> l1(&b);
+    cout << l1.get()->a;
 //    linked_ptr<A> l2(std::move(l1));
 //    //l2.reset();
 //    linked_ptr<A> l3 = std::move(l2);
@@ -36,21 +37,21 @@
 //
 //
 //    cout << l10.get()->b << "\n";
-//    return 0;
-//}
-
-
-#include <iostream>
-#include <memory>
-#include "linked_ptr.h"
-using namespace std;
-
-struct B;
-struct A {
-    linked_ptr<B> b;
-    shared_ptr<B> b2;
-};
-
-int main() {
- A a;
+    return 0;
 }
+
+
+//#include <iostream>
+//#include <memory>
+//#include "linked_ptr.h"
+//using namespace std;
+//
+//struct B;
+//struct A {
+//    linked_ptr<B> b;
+//    shared_ptr<B> b2;
+//};
+//
+//int main() {
+// A a;
+//}

@@ -1,1 +1,1 @@
-/usr/local/bin/x86_64-apple-darwin16.7.0-g++-8  -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/Linked_ptr.dir/main.cpp.o  -o Linked_ptr 
+/usr/local/bin/x86_64-apple-darwin16.7.0-g++-8  -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/Linked_ptr.dir/main2.cpp.o  -o Linked_ptr 

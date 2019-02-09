@@ -10,8 +10,18 @@
 iostream
 -
 
-/Users/elena/Desktop/Linked_ptr/main.cpp
+/Users/elena/Desktop/Linked_ptr/main2.cpp
 iostream
+-
+memory
+-
+algorithm
+-
+set
+-
+string
+-
+vector
 -
 linked_ptr.h
 /Users/elena/Desktop/Linked_ptr/linked_ptr.h
