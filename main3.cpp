@@ -177,9 +177,11 @@ bool test_swap() {
     linked_ptr<int> b3(b2);
     linked_ptr<int> b4(b3);
 
-    a2.swap(b2);
+    b3.swap(b4);
 
-    b3.swap(a2);
+ //   a2.swap(b2);
+
+  //  b3.swap(a2);
 //    b1.swap(a1);
 //
 //    a3.reset();

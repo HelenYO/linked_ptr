@@ -39,21 +39,35 @@ namespace {
         }
 
         void swap(info_base *other) {
+
+
             info_base *this_left = left;
             info_base *this_right = right;
             info_base *other_left = other->left;
             info_base *other_right = other->right;
 
+            info_base *sThis = nullptr;
+            info_base *sOther = nullptr;
             if (right == other) {
-                right = other_right;
-                left = other;
-                other->right = this;
-                other->left = this_left;
-            } else if (left == other) {
-                left = other_left;
-                right = other;
-                other->left = this;
-                other->right = this_right;
+                if (other->right) {
+                    sThis = other->right;
+                    remove();
+                    this->insert_before(sThis);
+                } else {
+                    other->remove();
+                    other->insert_before(this);
+                }
+            } else if(left == other) {
+                if (right) {
+                    sOther = right;
+                    other->remove();
+                    //sOther->insert_before(other);
+                    other->insert_before(sOther);
+                } else {
+                    remove();
+                    //other->insert_before(this);
+                    this->insert_before(other);
+                }
             } else {
 
 
@@ -76,6 +90,7 @@ namespace {
 
                 other->left = this_left;
                 other->right = this_right;
+
             }
         }
 
