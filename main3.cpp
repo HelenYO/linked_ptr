@@ -104,11 +104,11 @@ bool set_test() {
     cout << "start: set_test" << endl;
     std::set<linked_ptr<int>> S;
     linked_ptr<int> p1(new int(1));
-    linked_ptr<int> p2(new int(2));
-    linked_ptr<int> p3(new int(3));
+//    linked_ptr<int> p2(new int(2));
+//    linked_ptr<int> p3(new int(3));
     S.insert(p1);
-    S.insert(p2);
-    S.insert(p3);
+//    S.insert(p2);
+//    S.insert(p3);
     return true;
 }
 
@@ -162,32 +162,34 @@ bool test_bool(linked_ptr<int> lp, std::shared_ptr<int> sp) {
     return true;
 }
 
-//bool test_swap() {
-//    cout << "start: test_swap" << endl;
-//    int *a0 = new int(1);
-//    int *b0 = new int(2);
-//
-//    linked_ptr<int> a1(a0);
-//    linked_ptr<int> a2(a1);
-//    linked_ptr<int> a3(a2);
-//    linked_ptr<int> a4(a3);
-//
-//    linked_ptr<int> b1(b0);
-//    linked_ptr<int> b2(b1);
-//    linked_ptr<int> b3(b2);
-//    linked_ptr<int> b4(b3);
-//
-//    a2.swap(b2);
-//    b3.swap(a2);
+bool test_swap() {
+    cout << "start: test_swap" << endl;
+    int *a0 = new int(1);
+    int *b0 = new int(2);
+
+    linked_ptr<int> a1(a0);
+    linked_ptr<int> a2(a1);
+    linked_ptr<int> a3(a2);
+    linked_ptr<int> a4(a3);
+
+    linked_ptr<int> b1(b0);
+    linked_ptr<int> b2(b1);
+    linked_ptr<int> b3(b2);
+    linked_ptr<int> b4(b3);
+
+    a2.swap(b2);
+
+    b3.swap(a2);
 //    b1.swap(a1);
 //
 //    a3.reset();
 //    b2.reset();
 //    b1.reset();
 //    a4.reset();
-//
-//    return !(*a0 == 1 || *b0 != 2);
-//}
+
+    return true;
+    // return !(*a0 == 1 || *b0 != 2);
+}
 
 //bool make_linked_test() {
 //    cout << "start: make_linked_test" << endl;
@@ -239,9 +241,9 @@ int main() {
         std::cerr << "test_bool failed" << std::endl;
     } else cout << "ok" << endl;
 
-//    if (!test_swap()) {
-//        std::cerr << "test_swap failed" << std::endl;
-//    } else cout << "ok" << endl;
+    if (!test_swap()) {
+        std::cerr << "test_swap failed" << std::endl;
+    } else cout << "ok" << endl;
 
 //    if (!make_linked_test()) {
 //        std::cerr << "make_linked_test failed" << std::endl;

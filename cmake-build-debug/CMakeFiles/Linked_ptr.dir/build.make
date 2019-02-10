@@ -60,15 +60,15 @@ include CMakeFiles/Linked_ptr.dir/flags.make
 CMakeFiles/Linked_ptr.dir/main3.cpp.o: CMakeFiles/Linked_ptr.dir/flags.make
 CMakeFiles/Linked_ptr.dir/main3.cpp.o: ../main3.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/elena/Desktop/Linked_ptr/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Linked_ptr.dir/main3.cpp.o"
-	/usr/local/bin/x86_64-apple-darwin16.7.0-g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Linked_ptr.dir/main3.cpp.o -c /Users/elena/Desktop/Linked_ptr/main3.cpp
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Linked_ptr.dir/main3.cpp.o -c /Users/elena/Desktop/Linked_ptr/main3.cpp
 
 CMakeFiles/Linked_ptr.dir/main3.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Linked_ptr.dir/main3.cpp.i"
-	/usr/local/bin/x86_64-apple-darwin16.7.0-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/elena/Desktop/Linked_ptr/main3.cpp > CMakeFiles/Linked_ptr.dir/main3.cpp.i
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/elena/Desktop/Linked_ptr/main3.cpp > CMakeFiles/Linked_ptr.dir/main3.cpp.i
 
 CMakeFiles/Linked_ptr.dir/main3.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Linked_ptr.dir/main3.cpp.s"
-	/usr/local/bin/x86_64-apple-darwin16.7.0-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/elena/Desktop/Linked_ptr/main3.cpp -o CMakeFiles/Linked_ptr.dir/main3.cpp.s
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/elena/Desktop/Linked_ptr/main3.cpp -o CMakeFiles/Linked_ptr.dir/main3.cpp.s
 
 CMakeFiles/Linked_ptr.dir/main3.cpp.o.requires:
 

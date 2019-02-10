@@ -44,25 +44,39 @@ namespace {
             info_base *other_left = other->left;
             info_base *other_right = other->right;
 
-            if(this_left) {
-                this_left->right = other;
-            }
-            if(this_right) {
-                this_right->left = other;
-            }
+            if (right == other) {
+                right = other_right;
+                left = other;
+                other->right = this;
+                other->left = this_left;
+            } else if (left == other) {
+                left = other_left;
+                right = other;
+                other->left = this;
+                other->right = this_right;
+            } else {
 
-            if(other_left) {
-                other_left->right = this;
-            }
-            if(other_right) {
-                other_right->left = this;
-            }
 
-            this->left = other_left;
-            this->right = other_right;
+                if (this_left) {
+                    this_left->right = other;
+                }
+                if (this_right) {
+                    this_right->left = other;
+                }
 
-            other->left = this_left;
-            other->right = this_right;
+                if (other_left) {
+                    other_left->right = this;
+                }
+                if (other_right) {
+                    other_right->left = this;
+                }
+
+                this->left = other_left;
+                this->right = other_right;
+
+                other->left = this_left;
+                other->right = this_right;
+            }
         }
 
         info_base *left = nullptr;
@@ -93,13 +107,13 @@ namespace {
             data.insert_before(&other.data);
         }
 
-        linked_ptr(linked_ptr const &other) {
-            linked_ptr(const_cast<linked_ptr&>(other));
+        linked_ptr(linked_ptr const &other) : linked_ptr(const_cast<linked_ptr&>(other)){
+
         };
 
         template<typename U>
-        linked_ptr(linked_ptr<U> const &other) {
-            linked_ptr(const_cast<linked_ptr<U>&>(other));
+        linked_ptr(linked_ptr<U> const &other) : linked_ptr(const_cast<linked_ptr<U>&>(other)){
+
         };
 
         template<typename Y>
@@ -159,7 +173,6 @@ namespace {
         }
 
         bool unique() const {
-            //return !(data.left || data.right);
             return !data.left & !data.right;
         }
 
@@ -169,11 +182,11 @@ namespace {
 
         ~linked_ptr() {
             //destroy();
-            if(unique()) {
+            if(unique() && ptr) {
 
                 delete ptr;
 
-            } else {
+            } else if (ptr){
                 data.remove();
             }
             ptr = nullptr;
@@ -240,27 +253,11 @@ namespace {
             return other.ptr >= ptr;
         }
 
-    private:
-        void destroy() {
-            if (unique() && ptr) {
-                delete ptr;
-                ptr = nullptr;
-            } else {
-                data.remove();
-            }
-        }
 
     private:
         T *ptr;
         info_base data;
     };
-
-
-    template <typename T, typename U>
-    bool operator==(linked_ptr<T> const& a, linked_ptr<U> const& b) noexcept
-    {
-        return a.get() == b.get();
-    }
 
     template <typename T, typename U>
     bool operator!=(linked_ptr<T> const& a, linked_ptr<U> const& b) noexcept
