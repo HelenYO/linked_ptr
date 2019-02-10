@@ -169,7 +169,13 @@ namespace {
 
         ~linked_ptr() {
             //destroy();
-            data.remove();
+            if(unique()) {
+
+                delete ptr;
+
+            } else {
+                data.remove();
+            }
             ptr = nullptr;
         }
 

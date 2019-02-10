@@ -57,38 +57,38 @@ include CMakeFiles/Linked_ptr.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/Linked_ptr.dir/flags.make
 
-CMakeFiles/Linked_ptr.dir/main2.cpp.o: CMakeFiles/Linked_ptr.dir/flags.make
-CMakeFiles/Linked_ptr.dir/main2.cpp.o: ../main2.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/elena/Desktop/Linked_ptr/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Linked_ptr.dir/main2.cpp.o"
-	/usr/local/bin/x86_64-apple-darwin16.7.0-g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Linked_ptr.dir/main2.cpp.o -c /Users/elena/Desktop/Linked_ptr/main2.cpp
+CMakeFiles/Linked_ptr.dir/main3.cpp.o: CMakeFiles/Linked_ptr.dir/flags.make
+CMakeFiles/Linked_ptr.dir/main3.cpp.o: ../main3.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/elena/Desktop/Linked_ptr/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Linked_ptr.dir/main3.cpp.o"
+	/usr/local/bin/x86_64-apple-darwin16.7.0-g++-8  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Linked_ptr.dir/main3.cpp.o -c /Users/elena/Desktop/Linked_ptr/main3.cpp
 
-CMakeFiles/Linked_ptr.dir/main2.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Linked_ptr.dir/main2.cpp.i"
-	/usr/local/bin/x86_64-apple-darwin16.7.0-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/elena/Desktop/Linked_ptr/main2.cpp > CMakeFiles/Linked_ptr.dir/main2.cpp.i
+CMakeFiles/Linked_ptr.dir/main3.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Linked_ptr.dir/main3.cpp.i"
+	/usr/local/bin/x86_64-apple-darwin16.7.0-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/elena/Desktop/Linked_ptr/main3.cpp > CMakeFiles/Linked_ptr.dir/main3.cpp.i
 
-CMakeFiles/Linked_ptr.dir/main2.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Linked_ptr.dir/main2.cpp.s"
-	/usr/local/bin/x86_64-apple-darwin16.7.0-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/elena/Desktop/Linked_ptr/main2.cpp -o CMakeFiles/Linked_ptr.dir/main2.cpp.s
+CMakeFiles/Linked_ptr.dir/main3.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Linked_ptr.dir/main3.cpp.s"
+	/usr/local/bin/x86_64-apple-darwin16.7.0-g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/elena/Desktop/Linked_ptr/main3.cpp -o CMakeFiles/Linked_ptr.dir/main3.cpp.s
 
-CMakeFiles/Linked_ptr.dir/main2.cpp.o.requires:
+CMakeFiles/Linked_ptr.dir/main3.cpp.o.requires:
 
-.PHONY : CMakeFiles/Linked_ptr.dir/main2.cpp.o.requires
+.PHONY : CMakeFiles/Linked_ptr.dir/main3.cpp.o.requires
 
-CMakeFiles/Linked_ptr.dir/main2.cpp.o.provides: CMakeFiles/Linked_ptr.dir/main2.cpp.o.requires
-	$(MAKE) -f CMakeFiles/Linked_ptr.dir/build.make CMakeFiles/Linked_ptr.dir/main2.cpp.o.provides.build
-.PHONY : CMakeFiles/Linked_ptr.dir/main2.cpp.o.provides
+CMakeFiles/Linked_ptr.dir/main3.cpp.o.provides: CMakeFiles/Linked_ptr.dir/main3.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Linked_ptr.dir/build.make CMakeFiles/Linked_ptr.dir/main3.cpp.o.provides.build
+.PHONY : CMakeFiles/Linked_ptr.dir/main3.cpp.o.provides
 
-CMakeFiles/Linked_ptr.dir/main2.cpp.o.provides.build: CMakeFiles/Linked_ptr.dir/main2.cpp.o
+CMakeFiles/Linked_ptr.dir/main3.cpp.o.provides.build: CMakeFiles/Linked_ptr.dir/main3.cpp.o
 
 
 # Object files for target Linked_ptr
 Linked_ptr_OBJECTS = \
-"CMakeFiles/Linked_ptr.dir/main2.cpp.o"
+"CMakeFiles/Linked_ptr.dir/main3.cpp.o"
 
 # External object files for target Linked_ptr
 Linked_ptr_EXTERNAL_OBJECTS =
 
-Linked_ptr: CMakeFiles/Linked_ptr.dir/main2.cpp.o
+Linked_ptr: CMakeFiles/Linked_ptr.dir/main3.cpp.o
 Linked_ptr: CMakeFiles/Linked_ptr.dir/build.make
 Linked_ptr: CMakeFiles/Linked_ptr.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/elena/Desktop/Linked_ptr/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable Linked_ptr"
@@ -99,7 +99,7 @@ CMakeFiles/Linked_ptr.dir/build: Linked_ptr
 
 .PHONY : CMakeFiles/Linked_ptr.dir/build
 
-CMakeFiles/Linked_ptr.dir/requires: CMakeFiles/Linked_ptr.dir/main2.cpp.o.requires
+CMakeFiles/Linked_ptr.dir/requires: CMakeFiles/Linked_ptr.dir/main3.cpp.o.requires
 
 .PHONY : CMakeFiles/Linked_ptr.dir/requires
 
