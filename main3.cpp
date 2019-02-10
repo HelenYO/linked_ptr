@@ -177,17 +177,17 @@ bool test_swap() {
     linked_ptr<int> b3(b2);
     linked_ptr<int> b4(b3);
 
-    b3.swap(b4);
+ //   b3.swap(b4);
 
- //   a2.swap(b2);
+    a2.swap(b2);
 
-  //  b3.swap(a2);
-//    b1.swap(a1);
-//
-//    a3.reset();
-//    b2.reset();
-//    b1.reset();
-//    a4.reset();
+    b3.swap(a2);
+    b1.swap(a1);
+
+    a3.reset();
+    b2.reset();
+    b1.reset();
+    a4.reset();
 
     return true;
     // return !(*a0 == 1 || *b0 != 2);
@@ -205,6 +205,12 @@ bool test_swap() {
 
 int main() {
 
+    std::set<linked_ptr<int> > q;
+    q.insert(linked_ptr<int>(new int(5)));
+    q.insert(linked_ptr<int>(*q.begin()));
+
+
+    linked_ptr<int> a(nullptr);
     if (!base_test()) {
         std::cerr << "base_test failed" << std::endl;
     } else cout << "ok" << endl;

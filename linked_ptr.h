@@ -109,7 +109,7 @@ namespace {
 
         explicit linked_ptr(T *p) : ptr(p), data(nullptr, nullptr) {}
 
-        linked_ptr(std::nullptr_t) {}
+        linked_ptr(std::nullptr_t): ptr(nullptr), data(nullptr, nullptr) {}
 
         template<typename Y>
         linked_ptr(linked_ptr<Y> &other) {
@@ -151,16 +151,19 @@ namespace {
         }
 
         linked_ptr(linked_ptr &&other) {
-//            swap(other);
-//            other.data.remove();
-//            other.ptr = nullptr;
-            linked_ptr temp(std::move(other));
-            swap(temp);
+            ptr = other.ptr;
+            data = other.data;
+            other.ptr = nullptr;
+            other.data.left = nullptr;
+            other.data.right = nullptr;
         }
 
         linked_ptr &operator=(linked_ptr &&other) {
-            linked_ptr temp(std::move(other));
-            swap(temp);
+            ptr = other.ptr;
+            data = other.data;
+            other.ptr = nullptr;
+            other.data.left = nullptr;
+            other.data.right = nullptr;
             return *this;
         }
 
@@ -188,7 +191,7 @@ namespace {
         }
 
         bool unique() const {
-            return !data.left & !data.right;
+            return (!data.left && !data.right) && ptr;
         }
 
         operator bool() const {
